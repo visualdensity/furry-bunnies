@@ -1,5 +1,10 @@
 #!/usr/bin/php
 <?php
+/**
+ * Usage:
+ * ./publisher.topic.php 'topic.key' 'message here'
+ */
+
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
