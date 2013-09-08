@@ -19,7 +19,7 @@ $conn = new AMQPConnection('localhost', 5672, 'logger', 'logging123', 'loggin');
 $channel = $conn->channel();
 $channel->exchange_declare('topic.logs', 'topic', false, true, false);
 
-list($queue, ,) = $channel->queue_declare("", false, false, true, false);
+list($queue, ,) = $channel->queue_declare("incoming_replicated_logs", false, true, false, false);
 
 foreach($topic_keys as $topic_key) {
     $channel->queue_bind($queue, 'topic.logs', $topic_key);
