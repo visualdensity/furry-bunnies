@@ -1,5 +1,10 @@
 #!/usr/bin/php
 <?php
+/**
+ * Usage:
+ * ./consumer.topic.php 'topic.key'
+ */
+
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPConnection;
 

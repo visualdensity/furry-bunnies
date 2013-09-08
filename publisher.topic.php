@@ -1,5 +1,10 @@
 #!/usr/bin/php
 <?php
+/**
+ * Usage:
+ * ./publisher.topic.php 'topic.key' 'message here'
+ */
+
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -25,7 +30,7 @@ $channel->exchange_declare('topic.logs', 'topic', false, true, false);
 $msg = new AMQPMessage( $message , array( 'delivery_mode' => 2 ) );
 $channel->basic_publish( $msg, 'topic.logs', $topic_key );
 
-echo ' [x] Sent ' . $message . ' with key ' . $topic_key . "\n";
+echo ' [x] Sent message \'' . $message . '\' with key \'' . $topic_key . "'\n";
 
 $channel->close();
 $conn->close();

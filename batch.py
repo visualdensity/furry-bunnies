@@ -3,8 +3,12 @@
 from subprocess import call
 from random import *
 
-for i in range (0,1000):
+logTypes = ['application.info', 'application.error', 'application.warning', 'system.error', 'system.warning', 'event.hit', 'event.view', 'event.share']
+
+for i in range (0,100):
     rand_seed = randrange( randrange(1,123), randrange(888,65777) )
     #print i+1, ": " , rand_seed
-    call('./exchange_direct.php "Some seed - %d"' % rand_seed, shell=True)
+    #print choice(logTypes)
+    #print './publisher.topic.php "%s" "Some seed - %d"' % (choice(logTypes), rand_seed)
+    call('./publisher.topic.php "%s" "Some seed - %d"' % (choice(logTypes), rand_seed), shell=True)
 

@@ -1,0 +1,69 @@
+[{rabbitmq_shovel,[ 
+    {shovels, [ 
+        {avocado_orders_shovel, [
+            {sources, [ 
+                {broker, "amqp://logger:logging123@localhost/loggin"}, 
+                {declarations, [
+                    {'queue.declare', 
+                        [
+                            {queue, <<"backup_orders">>  }, 
+                            durable
+                        ] 
+                    },
+                    {'exchange.declare', 
+                        [
+                            {exchange, <<"incoming_orders">> },
+                            {type,     <<"direct">>          }, 
+                            durable
+                        ]
+                    },
+                    {'queue.bind',
+                        [
+                            {exchange,    <<"incoming_orders">> },
+                            {queue,       <<"backup_orders">>   },
+                            {routing_key, <<"warehouse">>       }
+                        ]
+                    }
+                ]}
+            ]},
+
+            {destinations, [
+                {broker, "amqp://logger:logging123@sf01.wk.com/loggin"},
+                {declarations, [
+                    {'queue.declare', 
+                        [
+                            {queue, <<"warehouse_carpinteria">> },
+                            durable
+                        ]
+                    },
+                    {'exchange.declare',
+                        [
+                            {exchange, <<"incoming_orders">> },
+                            {type,     <<"direct">>          },
+                            durable
+                        ]
+                    },
+                    {'queue.bind',
+                        [
+                            {exchange,    <<"incoming_orders">>       },
+                            {queue,       <<"warehouse_carpinteria">> },
+                            {routing_key, <<"warehouse">>             }
+                        ]
+                    }
+                ]}
+            ]},
+
+            {queue, <<"backup_orders">> },
+            {ack_mode, no_ack},
+            {publish_properties, [{delivery_mode, 2}] },
+
+            {publish_fields, [
+                {exchange, <<"incoming_orders">> },
+                {routing_key, <<"warehouse">> }
+            ]},
+
+            {reconnect_delay, 5 }
+
+        ]}
+    ]}
+]}].
