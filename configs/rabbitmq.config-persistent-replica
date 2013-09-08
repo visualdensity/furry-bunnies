@@ -1,0 +1,28 @@
+[{rabbitmq_shovel,[ 
+    {shovels, [ 
+        {log_shovel, [
+            {sources, [ 
+                {broker, "amqp://logger:logging123@localhost/loggin"}
+            ]},
+
+            {destinations, [
+                {broker, "amqp://logger:logging123@sf01.wk.com/loggin"},
+                {declarations, [
+                    {'exchange.declare',
+                        [
+                            {exchange, <<"topic.logs">> },
+                            {type,     <<"topic">>      },
+                            durable
+                        ]
+                    }
+                ]}
+            ]},
+
+            {queue, <<"log_replica_queue">> },
+            {ack_mode, on_confirm},
+            {publish_properties, [{delivery_mode, 2}] },
+
+            {reconnect_delay, 5 }
+        ]}
+    ]}
+]}].
