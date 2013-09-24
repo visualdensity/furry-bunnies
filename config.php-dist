@@ -2,4 +2,4 @@
 
 $rabbit_user='rabbit';
 $rabbit_password='123';
-$rabbit_vhost='/'
+$rabbit_vhost='/';
