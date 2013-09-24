@@ -8,6 +8,8 @@
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPConnection;
 
+require_once __DIR__ . 'config.php';
+
 $topic_keys = array_slice($argv,1);
 
 if( empty($topic_keys)) {
@@ -15,7 +17,7 @@ if( empty($topic_keys)) {
     exit(1);
 }
 
-$conn = new AMQPConnection('localhost', 5672, 'logger', 'logging123', 'loggin');
+$conn = new AMQPConnection('localhost', 5672, $rabbit_user, $rabbit_password, $rabbit_vhost);
 $channel = $conn->channel();
 $channel->exchange_declare('topic.logs', 'topic', false, true, false);
 
