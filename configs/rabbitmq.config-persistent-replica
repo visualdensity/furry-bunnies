@@ -18,7 +18,7 @@
                 ]}
             ]},
 
-            {queue, <<"log_replica_queue">> },
+            {queue, <<"events_queue">> },
             {ack_mode, on_confirm},
             {publish_properties, [{delivery_mode, 2}] },
 
