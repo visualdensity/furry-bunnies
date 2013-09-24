@@ -8,7 +8,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPConnection;
 
-require_once __DIR__ . 'config.php';
+require_once __DIR__ . '/config.php';
 
 $topic_keys = array_slice($argv,1);
 
